@@ -1,0 +1,218 @@
+/* ==========================================================================
+   2. Global Elements & Browser Styles
+   ========================================================================== */
+
+/* Smooth dark/light mode transition */
+html {
+  transition:
+    background-color 0.3s ease,
+    color 0.2s ease;
+}
+
+html body {
+  transition:
+    background-color 0.3s ease,
+    color 0.2s ease;
+}
+
+/* Strip VitePress default heading margins inside custom home sections */
+.custom-section h2,
+.custom-section h3,
+.custom-section h4 {
+  @apply mt-0! mb-0! border-t-0! pt-0!;
+  letter-spacing: -0.01em;
+}
+
+/* Headings & labels use Geist Sans */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.VPHero .name,
+.VPHero .text,
+.VPNavBarTitle .title,
+.tako-wordmark__text,
+.custom-section .font-extrabold,
+.custom-section .font-bold,
+.custom-section .font-semibold {
+  font-family: var(--font-heading) !important;
+}
+
+/* Fix VitePress overriding text colors inside home content area */
+.custom-section .text-text-1 {
+  @apply text-text-1!;
+}
+
+.custom-section .text-text-2 {
+  @apply text-text-2!;
+}
+
+.custom-section .text-text-3 {
+  @apply text-text-3!;
+}
+
+/* Ensure text-center works inside VitePress home content */
+.custom-section .text-center,
+.custom-section.text-center {
+  text-align: center !important;
+}
+
+/* Scrollbar Theme Customization */
+::-webkit-scrollbar {
+  @apply h-2.5 w-2.5;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full border-2 border-solid border-transparent bg-[rgba(128,128,128,0.25)];
+  background-clip: padding-box;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  @apply border-[transparent] bg-[rgba(255,255,255,0.15)];
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply border-[transparent];
+  background: color-mix(in srgb, var(--vp-c-brand-1) 50%, transparent);
+  background-clip: padding-box;
+}
+
+/* Premium Text Selection */
+::selection {
+  @apply bg-brand-soft-light text-primary;
+}
+html.dark ::selection {
+  @apply bg-brand-soft-dark text-primary;
+}
+
+/* 1. Global Ambient Blobs */
+.VPContent {
+  position: relative;
+  z-index: 0;
+}
+
+.VPContent::before,
+.VPContent::after {
+  @apply pointer-events-none rounded-full;
+  content: '';
+  position: fixed;
+  z-index: -1;
+  filter: blur(160px);
+  opacity: 0.08;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: blobFloatGlobal 25s ease-in-out infinite alternate;
+}
+
+@media (max-width: 768px) {
+  .VPContent::before,
+  .VPContent::after {
+    filter: blur(120px);
+    opacity: 0.1;
+  }
+}
+
+.VPContent::before {
+  @apply top-[-10%] left-[-10%] size-[800px] max-h-[150vw] max-w-[150vw] bg-primary;
+  animation-delay: 0s;
+}
+
+.VPContent::after {
+  @apply right-[-10%] bottom-[-10%] size-[700px] max-h-[120vw] max-w-[120vw] bg-primary-3;
+  animation-delay: -5s;
+}
+
+html.dark .VPContent::before,
+html.dark .VPContent::after {
+  opacity: 0.12; /* slightly dimmer in dark mode */
+}
+
+@keyframes blobFloatGlobal {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  33% {
+    transform: scale(1.1) translate(5%, -5%);
+  }
+  66% {
+    transform: scale(0.9) translate(-5%, 5%);
+  }
+  100% {
+    transform: scale(1.05) translate(0, 0);
+  }
+}
+
+/* 2. Glass Base Utilities */
+.bg-glass {
+  @apply border! border-solid! border-border! bg-[rgba(255,255,255,0.2)]!;
+  /* Frosted background */
+  backdrop-filter: blur(24px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+
+  /* Subdued glass border */
+
+  /* Inner shadow for thickness illusion */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+  /* Transition for hover states */
+  transition: all 0.3s ease;
+}
+
+html.dark .bg-glass {
+  @apply border! border-solid! border-[rgba(255,255,255,0.08)]! bg-[rgba(255,255,255,0.03)]!;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.bg-glass:not(.no-hover):hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 60%, transparent) !important;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 color-mix(in srgb, var(--vp-c-brand-1) 30%, transparent);
+}
+
+html.dark .bg-glass:not(.no-hover):hover {
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 60%, transparent) !important;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    0 0 30px color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--vp-c-brand-1) 20%, transparent);
+}
+
+/* 5. Micro-Aesthetics (Selection, Scrollbar, Mobile Nav) */
+
+/* Text Selection Color */
+::selection {
+  background-color: color-mix(in srgb, var(--vp-c-brand-1) 20%, transparent);
+  color: inherit;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  @apply size-2;
+}
+::-webkit-scrollbar-track {
+  @apply bg-base;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-[4px] bg-[rgba(128,128,128,0.3)];
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 50%, transparent);
+}
+
+/* Mobile Nav Glassmorphism */
+.VPNavScreen {
+  background-color: var(--vp-nav-screen-bg-color) !important;
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+}

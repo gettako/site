@@ -1,0 +1,286 @@
+/* ==========================================================================
+   10. Mermaid Diagram Theme
+   ========================================================================== */
+
+/**
+ * Mermaid diagrams styled to match Tako brand palette.
+ * Dark mode uses slate-900/950 backgrounds with terracotta accents.
+ * Light mode uses soft slate backgrounds with deeper terracotta accents.
+ */
+
+/* Container styling */
+.tako-mermaid {
+  @apply m-[1.5rem_0] rounded-[12px] border border-solid border-border bg-surface p-6;
+  overflow-x: auto;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.tako-mermaid:hover {
+  @apply border-primary;
+}
+
+/* Light mode overrides for mermaid SVG internals */
+:root .tako-mermaid .node rect,
+:root .tako-mermaid .node circle,
+:root .tako-mermaid .node polygon,
+:root .tako-mermaid .node path {
+  @apply fill-[#f8f4f2]! stroke-[#B5623E]!;
+  stroke-width: 1.5px;
+}
+
+:root .tako-mermaid .node .label,
+:root .tako-mermaid .nodeLabel {
+  @apply fill-[#1e293b]! text-[#1e293b]!;
+}
+
+:root .tako-mermaid .edgePath .path,
+:root .tako-mermaid .flowchart-link {
+  @apply stroke-[#A55535]!;
+  stroke-width: 1.5px;
+}
+
+:root .tako-mermaid .edgeLabel,
+:root .tako-mermaid .edgeLabel rect,
+:root .tako-mermaid .edgeLabel span,
+:root .tako-mermaid .edgeLabel p {
+  @apply bg-transparent! fill-[transparent]! text-[#475569]!;
+}
+
+:root [id^='mermaid'] .edgeLabel p {
+  @apply bg-transparent! text-[#475569]!;
+}
+
+:root .tako-mermaid .marker {
+  @apply fill-[#A55535]! stroke-[#A55535]!;
+}
+
+:root .tako-mermaid .label-container {
+  @apply fill-[#f8f4f2]! stroke-[#B5623E]!;
+}
+
+/* Sequence diagram light mode */
+:root .tako-mermaid .actor {
+  @apply fill-[#f8f4f2]! stroke-[#B5623E]!;
+}
+
+:root .tako-mermaid text.actor > tspan {
+  @apply fill-[#1e293b]!;
+}
+
+:root .tako-mermaid .messageLine0,
+:root .tako-mermaid .messageLine1 {
+  @apply stroke-[#A55535]!;
+}
+
+:root .tako-mermaid .messageText {
+  @apply fill-[#334155]!;
+}
+
+:root .tako-mermaid .activation0,
+:root .tako-mermaid .activation1,
+:root .tako-mermaid .activation2 {
+  @apply fill-[rgba(181,98,62,0.12)]! stroke-[#B5623E]!;
+}
+
+:root .tako-mermaid .note {
+  @apply fill-[#fef3ed]! stroke-[#C7775D]!;
+}
+
+:root .tako-mermaid .noteText,
+:root .tako-mermaid .noteText > tspan {
+  @apply fill-[#000000]!;
+}
+
+:root .tako-mermaid .labelBox {
+  @apply fill-[#f8fafc]! stroke-[#C7775D]!;
+}
+
+:root .tako-mermaid .labelText,
+:root .tako-mermaid .labelText > tspan {
+  @apply fill-[#334155]!;
+}
+
+:root .tako-mermaid .loopText,
+:root .tako-mermaid .loopText > tspan {
+  @apply fill-[#475569]!;
+}
+
+:root .tako-mermaid .loopLine {
+  @apply stroke-[#cbd5e1]!;
+}
+
+:root .tako-mermaid line[id*='sequencenumber'] {
+  @apply stroke-[#B5623E]!;
+}
+
+/* State diagram light mode */
+:root .tako-mermaid .statediagram-state rect {
+  @apply fill-[#f8f4f2]! stroke-[#B5623E]!;
+}
+
+:root .tako-mermaid .state-note {
+  @apply fill-[#fef3ed]! stroke-[#C7775D]!;
+}
+
+/* Subgraph light mode */
+:root .tako-mermaid .cluster rect {
+  @apply fill-[#f8fafc]! stroke-[#cbd5e1]!;
+  rx: 8px;
+  ry: 8px;
+}
+
+:root .tako-mermaid .cluster text {
+  @apply fill-[#64748b]!;
+}
+
+/* Dark mode overrides for mermaid SVG internals */
+html.dark .tako-mermaid .node rect,
+html.dark .tako-mermaid .node circle,
+html.dark .tako-mermaid .node polygon,
+html.dark .tako-mermaid .node path {
+  @apply fill-[#1e293b]! stroke-[#C7775D]!;
+  stroke-width: 1.5px;
+}
+
+html.dark .tako-mermaid .node .label,
+html.dark .tako-mermaid .nodeLabel {
+  @apply fill-[#f1e8e4]! text-[#f1e8e4]!;
+}
+
+html.dark .tako-mermaid .edgePath .path,
+html.dark .tako-mermaid .flowchart-link {
+  @apply stroke-[#D38870]!;
+  stroke-width: 1.5px;
+}
+
+html.dark .tako-mermaid .edgeLabel,
+html.dark .tako-mermaid .edgeLabel rect,
+html.dark .tako-mermaid .edgeLabel span,
+html.dark .tako-mermaid .edgeLabel p {
+  @apply bg-transparent! fill-[transparent]! text-[#e2e8f0]!;
+}
+
+html.dark [id^='mermaid'] .edgeLabel p {
+  @apply bg-transparent! text-[#e2e8f0]!;
+}
+
+html.dark .tako-mermaid .marker {
+  @apply fill-[#D38870]! stroke-[#D38870]!;
+}
+
+html.dark .tako-mermaid .label-container {
+  @apply fill-[#1e293b]! stroke-[#C7775D]!;
+}
+
+/* Sequence diagram dark mode */
+html.dark .tako-mermaid .actor {
+  @apply fill-[#1e293b]! stroke-[#C7775D]!;
+}
+
+html.dark .tako-mermaid text.actor > tspan {
+  @apply fill-[#f1e8e4]!;
+}
+
+html.dark .tako-mermaid .messageLine0,
+html.dark .tako-mermaid .messageLine1 {
+  @apply stroke-[#D38870]!;
+}
+
+html.dark .tako-mermaid .messageText {
+  @apply fill-[#e2e8f0]!;
+}
+
+html.dark .tako-mermaid .activation0,
+html.dark .tako-mermaid .activation1,
+html.dark .tako-mermaid .activation2 {
+  @apply fill-[#2d1f1a]! stroke-[#D38870]!;
+}
+
+html.dark .tako-mermaid .note {
+  @apply fill-[#1e293b]! stroke-[#C7775D]!;
+}
+
+html.dark .tako-mermaid .noteText,
+html.dark .tako-mermaid .noteText > tspan {
+  @apply fill-text-1!;
+}
+
+html.dark .tako-mermaid .labelBox {
+  @apply fill-[#1e293b]! stroke-[#C7775D]!;
+}
+
+html.dark .tako-mermaid .labelText,
+html.dark .tako-mermaid .labelText > tspan {
+  @apply fill-[#e2e8f0]!;
+}
+
+html.dark .tako-mermaid .loopText,
+html.dark .tako-mermaid .loopText > tspan {
+  @apply fill-[#e2e8f0]!;
+}
+
+html.dark .tako-mermaid .loopLine {
+  @apply stroke-[#334155]!;
+}
+
+html.dark .tako-mermaid line[id*='sequencenumber'] {
+  @apply stroke-[#C7775D]!;
+}
+
+/* State diagram dark mode */
+html.dark .tako-mermaid .statediagram-state rect {
+  @apply fill-[#1e293b]! stroke-[#C7775D]!;
+}
+
+html.dark .tako-mermaid .state-note {
+  @apply fill-[#2d1f1a]! stroke-[#C7775D]!;
+}
+
+/* Subgraph dark mode */
+html.dark .tako-mermaid .cluster rect {
+  @apply fill-[#0f172a]! stroke-[#334155]!;
+  rx: 8px;
+  ry: 8px;
+}
+
+html.dark .tako-mermaid .cluster text {
+  @apply fill-[#94a3b8]!;
+}
+
+/* Transition labels in state diagrams */
+html.dark .tako-mermaid .transition {
+  @apply stroke-[#D38870]!;
+}
+
+html.dark .tako-mermaid .stateLabel .nodeLabel {
+  @apply fill-[#f1e8e4]! text-[#f1e8e4]!;
+}
+
+/* Arrow markers (universal) */
+html.dark .tako-mermaid marker path {
+  @apply fill-[#D38870]!;
+}
+
+:root .tako-mermaid marker path {
+  @apply fill-[#A55535]!;
+}
+
+/* --- Disable Text Selection on Homepage --- */
+.VPHome {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Re-enable text selection for code blocks and terminal */
+.VPHome pre,
+.VPHome code,
+.qs-snippet-panel,
+.VPTerminalBody,
+.VPTerminalBody * {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* --- Glassmorphism Overhaul --- */

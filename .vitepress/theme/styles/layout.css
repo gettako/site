@@ -1,0 +1,485 @@
+/* ==========================================================================
+   3. VitePress Built-in Components Overrides
+   ========================================================================== */
+
+/* --- VPDoc: Seamless Page Fade Transitions --- */
+.VPDoc {
+  animation: fadeInDoc 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes fadeInDoc {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- VPNavBar: Removed duplicated glass rule --- */
+
+/* Hide the redundant dividers on the right side */
+.VPNavBarSearch::before,
+.VPNavBarSocialLinks::before {
+  @apply hidden!;
+}
+
+/* --- VPNavBarSearch (Local Search Button Styling) --- */
+
+.VPNavBarSearchButton:hover {
+  @apply border-primary! bg-brand-soft-light!;
+  box-shadow: 0 4px 12px var(--color-brand-soft-light) !important;
+}
+
+html.dark .VPNavBarSearchButton:hover {
+  @apply bg-brand-soft-dark!;
+  box-shadow: inset 0 0 8px var(--color-brand-soft-dark) !important;
+}
+
+.VPNavBarSearchButton .DocSearch-Button-Key,
+.VPNavBarSearchButton kbd {
+  @apply border-primary! bg-transparent! text-primary! shadow-none!;
+}
+
+/* --- Local Search Modal Overrides --- */
+.VPLocalSearchBox .result {
+  border-width: 1px !important;
+}
+
+/* Berikan border langsung ke komponen kiri (Judul) dan kanan (Konten) */
+.wrapper {
+  border-bottom: 1px solid var(--terminal-border) !important;
+}
+
+/* --- VPSidebar: Indent items under groups --- */
+.VPSidebarItem.level-0 > .items {
+  @apply ml-[0.4rem]! pl-[0.2rem]!;
+}
+
+/* Sembunyikan garis bawaan divider agar tidak double */
+.VPNavBar .divider {
+  @apply hidden!;
+}
+
+.VPNavBarTitle.has-sidebar .title {
+  @apply border-b-0;
+}
+
+/* Fix mobile overlap (VitePress default gives negative margins to .image on mobile) */
+@media (max-width: 959px) {
+  .VPHero {
+    @apply pt-[calc(var(--vp-nav-height,64px)+2rem)]!;
+  }
+  .VPHero .container {
+    @apply flex!;
+    flex-direction: column !important;
+  }
+  .VPHero .main {
+    order: 1 !important;
+    position: relative !important;
+    z-index: 20 !important;
+  }
+  .VPHero .image {
+    @apply m-[3.5rem_auto_1.5rem_auto]!;
+    order: 2 !important;
+    position: relative !important;
+    transform: none !important;
+    z-index: 10 !important;
+  }
+}
+
+/* Fix logo background blur overlap/positioning and add Pulse */
+.VPHero .image-bg {
+  @apply size-[clamp(200px,45vw,320px)]! rounded-full;
+  filter: blur(90px) saturate(150%) !important;
+  animation: pulseGlow 4s ease-in-out infinite alternate !important;
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* Fix logo overlap/size */
+.VPHero .image-src {
+  @apply max-h-[clamp(150px,35vw,250px)]! max-w-[clamp(150px,35vw,250px)]!;
+  animation: float 6s ease-in-out infinite !important;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) translateY(-15px);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+}
+
+/* ------------------------------------------------------------------
+   VitePress Hero Typography Overrides
+   ------------------------------------------------------------------ */
+
+/* 1. Kicker / Brand Name (TAKO) */
+.VPHero .name,
+.VPHero .name .clip {
+  @apply mb-2! bg-(--vp-home-hero-name-background)! text-[transparent]!;
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important; /* Wide letter spacing for kicker */
+  font-size: clamp(14px, 3vw, 18px) !important; /* Make it smaller like an eyebrow */
+  line-height: 1.5 !important;
+  display: inline-block !important; /* Better for text-clip */
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* 2. Main Title (The missing framework...) */
+.VPHero .text {
+  @apply text-text-1!;
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important; /* Extra bold */
+  letter-spacing: -0.04em !important; /* Tight spacing for display feel */
+  line-height: 1.15 !important;
+}
+
+/* 3. Description / Tagline (Structure your TUI...) */
+.VPHero .tagline {
+  @apply mt-4! text-text-2!;
+  font-family: var(--vp-font-family-base) !important; /* Base text font */
+  font-weight: 400 !important; /* Normal weight */
+  font-size: clamp(16px, 2.5vw, 20px) !important;
+  line-height: 1.6 !important;
+}
+
+/* --- VPFeature: Feature Cards Border and Shimmer Hover Effect --- */
+.VPFeature .box {
+  @apply relative overflow-hidden rounded-2xl border border-solid border-border! transition-all duration-300 ease-out;
+}
+
+.VPFeature .box:hover {
+  @apply border-primary!;
+  box-shadow: 0 8px 30px var(--color-brand-soft-light);
+  transform: translateY(-2px);
+}
+
+html.dark .VPFeature .box:hover {
+  box-shadow: 0 8px 30px var(--color-brand-soft-dark);
+}
+
+.VPFeature .box::before {
+  @apply pointer-events-none absolute top-0 left-[-100%] z-10 h-full w-1/2;
+  content: '';
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-20deg);
+}
+
+html.dark .VPFeature .box::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+}
+
+.VPFeature .box:hover::before {
+  @apply left-[200%] transition-[left] duration-700 ease-out;
+}
+
+/* --- VP Code Blocks --- */
+
+/* Shiki code block border on doc pages */
+.vp-doc div[class*='language-'],
+.VPDoc div[class*='language-'] {
+  @apply rounded-[12px]! border! border-solid! border-border! bg-[rgba(241,245,249,0.6)]!;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+html.dark .vp-doc div[class*='language-'],
+html.dark .VPDoc div[class*='language-'] {
+  @apply bg-[rgba(15,23,42,0.6)]!;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Fix code block stretching to edges on mobile */
+@media (max-width: 639px) {
+  .vp-doc div[class*='language-'],
+  .VPDoc div[class*='language-'] {
+    @apply m-[16px_0]! rounded-[12px]!;
+  }
+}
+
+/* Force Iosevka on all code/pre rendered by Shiki */
+code,
+pre,
+.vp-code,
+.vp-code code,
+div[class*='language-'] code,
+div[class*='language-'] pre {
+  font-family: 'Iosevka', var(--vp-font-family-mono) !important;
+}
+
+/* ==========================================================================
+   6. Overrides & Fixes
+   ========================================================================== */
+
+/* Fix gap between VPHome and VPHomeFooter */
+.VPHome {
+  @apply mb-0! pb-0!;
+}
+
+/* ==========================================================================
+   11. Auto Section Spacing & Dividers
+   ========================================================================== */
+
+/* Each .custom-section after the first gets a subtle gradient divider */
+.vp-doc .custom-section + .custom-section::before,
+.VPHome .custom-section + .custom-section::before {
+  @apply m-[0_auto_2.5rem] h-[1px] max-w-[20rem];
+  content: '';
+  display: block;
+  background: linear-gradient(90deg, transparent, var(--vp-c-brand-1), transparent);
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   12. Mobile Responsive Compacting
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  /* Reduce section header bottom margin */
+  .custom-section .mb-14 {
+    @apply mb-7!;
+  }
+
+  /* Tighter card padding on mobile */
+  .custom-section .p-7 {
+    @apply p-5!;
+  }
+
+  /* Reduce grid gaps */
+  .custom-section .gap-6 {
+    gap: 1rem !important;
+  }
+
+  .custom-section .gap-10 {
+    gap: 1.5rem !important;
+  }
+
+  /* Section vertical padding compact — respect hierarchy */
+  .custom-section {
+    @apply pt-6! pb-6!;
+  }
+
+  /* Primary sections get slightly more space */
+  .architecture-preview,
+  .features-section {
+    @apply pt-8! pb-8!;
+  }
+
+  /* Reduce divider margin on mobile */
+  .VPHome .custom-section + .custom-section::before {
+    @apply mb-5;
+  }
+
+  /* Comparison section callout padding */
+  .agnostic-callout .p-8 {
+    @apply p-5!;
+  }
+
+  .agnostic-callout > div {
+    @apply p-5!;
+  }
+
+  /* QuickStart steps spacing */
+  .quick-start .pb-7 {
+    @apply pb-5!;
+  }
+
+  /* CTA section */
+  .cta-section .mb-8 {
+    @apply mb-6!;
+  }
+
+  /* FAQ section items */
+  .faq-section .px-6 {
+    @apply pr-4! pl-4!;
+  }
+
+  /* Footer */
+  .custom-footer .gap-10 {
+    gap: 1.5rem !important;
+  }
+
+  .custom-footer .mt-10 {
+    @apply mt-6!;
+  }
+
+  /* Stats grid compact */
+  .custom-section .px-6 {
+    @apply pr-3! pl-3!;
+  }
+
+  /* Heading sizes slightly smaller */
+  .custom-section h2 {
+    font-size: 1.375rem !important;
+  }
+
+  /* Architecture diagram: already hidden on mobile (hidden md:block) */
+
+  /* Pillar/feature icon boxes */
+  .custom-section .w-11 {
+    @apply size-9!;
+  }
+
+  .custom-section .w-11 .w-6 {
+    @apply size-5!;
+  }
+
+  /* Hide heavy interactive animations on mobile for performance */
+  .byou-modern-demo,
+  .layered-3d-demo,
+  .ecosystem-magnetic,
+  .smart-routing-demo,
+  .event-bus-demo,
+  .ioc-demo-compact,
+  .ui-abs-wireframe {
+    @apply hidden!;
+  }
+
+  /* Disable bento icon wiggle on mobile (performance) */
+  .group:hover .bento-icon {
+    animation: none !important;
+  }
+}
+
+/* Ambient Glow for Glassmorphism Refraction */
+.Layout {
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(181, 98, 62, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(199, 119, 93, 0.03) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* 4. Search Button & Modal Glassmorphism */
+.VPNavBarSearchButton {
+  @apply border! border-solid! border-[rgba(0,0,0,0.08)]! bg-[rgba(0,0,0,0.04)]!;
+  backdrop-filter: blur(12px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(120%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  transition: all 0.3s ease !important;
+}
+
+.VPNavBarSearchButton:hover {
+  @apply border-[rgba(0,0,0,0.2)]! bg-[rgba(0,0,0,0.06)]!;
+}
+
+html.dark .VPNavBarSearchButton {
+  @apply border! border-solid! border-[rgba(255,255,255,0.1)]! bg-[rgba(255,255,255,0.05)]!;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+html.dark .VPNavBarSearchButton:hover {
+  @apply border-[rgba(255,255,255,0.2)]! bg-[rgba(255,255,255,0.1)]!;
+}
+
+@media (max-width: 768px) {
+  .VPNavBarSearchButton,
+  .VPNavBarSearchButton:hover,
+  html.dark .VPNavBarSearchButton,
+  html.dark .VPNavBarSearchButton:hover,
+  .DocSearch-Button,
+  .DocSearch-Button:hover,
+  html.dark .DocSearch-Button,
+  html.dark .DocSearch-Button:hover {
+    @apply border-none! bg-transparent! shadow-none!;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Local Search Modal Backdrop */
+.VPLocalSearchBox .backdrop {
+  @apply bg-[rgba(255,255,255,0.3)]!;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+html.dark .VPLocalSearchBox .backdrop {
+  @apply bg-[rgba(0,0,0,0.4)]!;
+}
+
+/* Local Search Modal Shell */
+.VPLocalSearchBox .shell {
+  @apply border! border-solid! border-border! bg-[rgba(255,255,255,0.7)]!;
+  backdrop-filter: blur(30px) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+
+html.dark .VPLocalSearchBox .shell {
+  @apply border! border-solid! border-[rgba(255,255,255,0.08)]! bg-[rgba(27,27,31,0.6)]!;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.VPLocalSearchBox .search-bar {
+  @apply rounded-[6px]! border! border-solid! border-border! bg-transparent!;
+}
+
+.VPLocalSearchBox .search-bar:focus-within {
+  @apply border-primary!;
+  box-shadow: inset 0 0 0 1px var(--vp-c-brand-1) !important;
+}
+
+.VPLocalSearchBox .search-bar input {
+  @apply bg-transparent!;
+}
+
+.VPLocalSearchBox .results {
+  @apply bg-transparent!;
+}
+
+/* 6. Mobile Search Button Optimization */
+@media (max-width: 768px) {
+  .VPNavBarSearch .DocSearch-Button-Placeholder,
+  .VPNavBarSearch .DocSearch-Button-Keys,
+  .VPNavBarSearch .DocSearch-Button-Key,
+  .VPNavBarSearch .VPNavBarSearchButton-Placeholder,
+  .VPNavBarSearch .VPNavBarSearchButton-Keys {
+    @apply hidden!;
+  }
+
+  .VPNavBarSearch .DocSearch-Button,
+  .VPNavBarSearch .VPNavBarSearchButton {
+    @apply m-0! size-8! justify-center! border-none! bg-transparent! p-0! shadow-none!;
+  }
+
+  .VPNavBarSearch .DocSearch-Button:hover,
+  .VPNavBarSearch .VPNavBarSearchButton:hover {
+    @apply border-none! bg-transparent! text-primary! shadow-none!;
+  }
+
+  .VPNavBarSearch .DocSearch-Search-Icon,
+  .VPNavBarSearch .VPNavBarSearchButton .DocSearch-Search-Icon {
+    @apply m-0!;
+  }
+}

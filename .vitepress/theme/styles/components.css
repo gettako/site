@@ -1,0 +1,467 @@
+/* ==========================================================================
+   4. Custom Theme Components
+   ========================================================================== */
+
+/* --- VPTerminalShowcase --- */
+.VPTerminalShowcase {
+  @apply mx-auto my-8 max-w-3xl overflow-hidden rounded-xl border border-solid border-border bg-surface transition-all duration-300 ease-out md:my-12 md:rounded-2xl;
+}
+
+/* When inside quick-start section, remove max-width restriction */
+.quick-start .VPTerminalShowcase {
+  @apply m-0 max-w-none;
+}
+
+.VPTerminalShowcase:hover {
+  @apply border-primary;
+  box-shadow: 0 8px 40px var(--color-brand-soft-light);
+  transform: translateY(-2px);
+}
+
+html.dark .VPTerminalShowcase:hover {
+  box-shadow: 0 8px 40px var(--color-brand-soft-dark);
+}
+
+.VPTerminalHeader {
+  @apply flex items-center border-b border-solid border-border bg-[rgba(0,0,0,0.03)] px-4 py-3;
+}
+html.dark .VPTerminalHeader {
+  @apply bg-[rgba(0,0,0,0.2)];
+}
+
+.VPTerminalDots {
+  @apply flex gap-2;
+}
+
+.VPTerminalDots .vp-dot {
+  @apply h-3 w-3 rounded-full;
+}
+
+.vp-dot.red {
+  @apply bg-[#ff5f56];
+}
+
+.vp-dot.yellow {
+  @apply bg-[#ffbd2e];
+}
+
+.vp-dot.green {
+  @apply bg-[#27c93f];
+}
+
+.VPTerminalTitle {
+  @apply mr-11 flex-1 text-center text-[13px] text-slate-700 text-text-2;
+  font-family: var(--vp-font-family-mono);
+}
+
+/* --- QuickStart tab switcher --- */
+.qs-tabs {
+  @apply flex flex-1 items-center justify-center gap-1;
+}
+
+.qs-tab {
+  @apply cursor-pointer rounded-md border-none bg-transparent px-3 py-1 text-xs font-medium text-text-3 transition-all duration-150 outline-none;
+  font-family: var(--vp-font-family-mono);
+}
+
+.qs-tab:hover {
+  @apply bg-[rgba(128,128,128,0.1)] text-text-2;
+}
+
+.qs-tab--active {
+  @apply text-primary!;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent) !important;
+}
+
+.VPTerminalBody {
+  @apply p-0;
+  font-size: 12px;
+}
+
+.VPTerminalBody code {
+  font-size: 12px !important;
+}
+
+.VPTerminalBody .language-go {
+  @apply border-0!;
+}
+
+.VPTerminalBody div[class*='language-'] {
+  @apply m-0! rounded-none! border-none! bg-transparent!;
+}
+
+.VPTerminalBody div[class*='language-'] pre {
+  @apply m-0! rounded-none! bg-transparent! pb-6!;
+}
+
+html.dark .VPTerminalBody div[class*='language-'],
+html.dark .VPTerminalBody div[class*='language-'] pre {
+  @apply bg-transparent!;
+}
+
+.VPTerminalBody div[class*='language-'] code {
+  @apply p-[0_1rem]!;
+}
+
+.VPTerminalBody > div {
+  @apply overflow-hidden;
+}
+
+/* Snippet panel animation — re-triggers via class toggle */
+.qs-snippet-panel {
+  @apply max-h-0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.qs-snippet-panel.qs-snippet-animate {
+  animation: terminalPrint 1.5s steps(20, end) forwards;
+}
+
+/* Legacy fallback for non-quickstart terminals */
+.VPTerminalBody > div:not(.qs-snippet-panel) {
+  @apply max-h-0 overflow-hidden;
+  animation: terminalPrint 2s steps(20, end) forwards;
+}
+
+/* Responsive: limit terminal height on mobile */
+@media (max-width: 768px) {
+  .VPTerminalBody {
+    @apply max-h-[400px];
+    overflow-y: auto;
+  }
+}
+
+@keyframes terminalPrint {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  100% {
+    max-height: 1200px;
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   5. Tako Wordmark
+   ========================================================================== */
+
+/**
+ * .tako-wordmark — premium gradient wordmark used in footer & navbar.
+ * Structure: <a class="tako-wordmark"><span class="tako-wordmark__prefix">...< /span><span class="tako-wordmark__text">...</ span></a>
+ */
+.tako-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.15em;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none !important;
+  /* shimmer sweep mask */
+  --_shimmer: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 70%
+  );
+}
+
+.tako-wordmark::after {
+  @apply pointer-events-none bg-(--_shimmer);
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-size: 200% 100%;
+  background-position: -100% 0;
+  transition: background-position 0s;
+  opacity: 0;
+}
+
+.tako-wordmark:hover::after {
+  animation: takoShimmer 0.65s ease-out forwards;
+}
+
+@keyframes takoShimmer {
+  from {
+    opacity: 1;
+    background-position: -100% 0;
+  }
+
+  to {
+    opacity: 0;
+    background-position: 200% 0;
+  }
+}
+
+.tako-wordmark__text {
+  @apply text-[transparent];
+  background: linear-gradient(
+    135deg,
+    var(--vp-c-brand-3) 0%,
+    var(--vp-c-brand-1) 50%,
+    var(--vp-c-brand-2) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: filter 0.25s ease;
+}
+
+.tako-wordmark:hover .tako-wordmark__text {
+  filter: brightness(1.15) saturate(1.2);
+}
+
+/* --- VPNavBar site title wordmark patch --- */
+/* Mirror the footer .tako-wordmark: gradient text + lowercase */
+.VPNavBarTitle .title {
+  @apply text-[transparent];
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    135deg,
+    var(--vp-c-brand-3) 0%,
+    var(--vp-c-brand-1) 50%,
+    var(--vp-c-brand-2) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: filter 0.25s ease;
+}
+
+.VPNavBarTitle:hover .title {
+  filter: brightness(1.15) saturate(1.2);
+}
+
+/* ==========================================================================
+   13. CTA Gradient Border Button
+   ========================================================================== */
+
+.cta-btn-primary {
+  @apply items-center justify-center text-primary!;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 30%, transparent) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex;
+}
+
+.cta-btn-primary:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--vp-c-brand-1) 25%, transparent) !important;
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 50%, transparent) !important;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 0 20px color-mix(in srgb, var(--vp-c-brand-1) 20%, transparent) !important;
+}
+
+.cta-btn-alt {
+  @apply items-center justify-center border! border-solid! border-[rgba(255,255,255,0.1)]! bg-[rgba(255,255,255,0.03)]! text-text-1!;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex;
+}
+
+.cta-btn-alt:hover {
+  @apply border-[rgba(255,255,255,0.25)]! bg-[rgba(255,255,255,0.08)]!;
+  transform: translateY(-2px);
+}
+
+html.light .cta-btn-alt {
+  @apply border! border-solid! border-[rgba(0,0,0,0.1)]! bg-[rgba(0,0,0,0.03)]!;
+}
+
+html.light .cta-btn-alt:hover {
+  @apply border-[rgba(0,0,0,0.2)]! bg-[rgba(0,0,0,0.06)]!;
+}
+
+/* 4. Glassmorphism for Docs Code Blocks & Mermaid */
+.vp-doc [class*='language-'],
+.vp-doc .mermaid {
+  @apply rounded-[8px] border! border-solid! border-border! bg-[rgba(255,255,255,0.2)]!;
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+
+html.dark .vp-doc [class*='language-'],
+html.dark .vp-doc .mermaid {
+  @apply border! border-solid! border-[rgba(255,255,255,0.08)]! bg-[rgba(255,255,255,0.03)]!;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+.vp-doc [class*='language-'] pre,
+html.dark .vp-doc [class*='language-'] pre {
+  @apply m-0! bg-transparent!;
+}
+
+.vp-doc .mermaid {
+  @apply flex justify-center p-6;
+  overflow-x: auto;
+}
+
+.vp-doc .mermaid svg,
+html.dark .vp-doc .mermaid svg {
+  @apply bg-transparent!;
+  color-scheme: dark;
+}
+
+/* 4. Unified Glassmorphism Buttons (Hero & CTA) */
+.VPHero .VPButton.brand,
+.cta-btn-primary {
+  @apply items-center justify-center bg-[rgba(255,255,255,0.05)]! text-text-1!;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 50%, transparent) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--vp-c-brand-1) 30%, transparent),
+    0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex;
+}
+
+html.dark .VPHero .VPButton.brand,
+html.dark .cta-btn-primary {
+  @apply bg-[rgba(255,255,255,0.03)]!;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--vp-c-brand-1) 30%, transparent),
+    0 0 15px color-mix(in srgb, var(--vp-c-brand-1) 10%, transparent) !important;
+}
+
+.VPHero .VPButton.brand:hover,
+.cta-btn-primary:hover {
+  @apply border-primary! text-primary!;
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--vp-c-brand-1) 50%, transparent),
+    0 0 30px color-mix(in srgb, var(--vp-c-brand-1) 20%, transparent) !important;
+}
+
+.VPHero .VPButton.alt,
+.cta-btn-alt {
+  @apply items-center justify-center border! border-solid! border-border! bg-[rgba(255,255,255,0.05)]! text-text-1!;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex;
+}
+
+html.dark .VPHero .VPButton.alt,
+html.dark .cta-btn-alt {
+  @apply border! border-solid! border-[rgba(255,255,255,0.08)]! bg-[rgba(255,255,255,0.03)]!;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+.VPHero .VPButton.alt:hover,
+.cta-btn-alt:hover {
+  @apply border-[rgba(255,255,255,0.2)]! bg-[rgba(255,255,255,0.1)]!;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+html.light .VPHero .VPButton.alt,
+html.light .cta-btn-alt {
+  @apply border! border-solid! border-[rgba(0,0,0,0.1)]! bg-[rgba(0,0,0,0.03)]!;
+}
+
+html.light .VPHero .VPButton.alt:hover,
+html.light .cta-btn-alt:hover {
+  @apply border-[rgba(0,0,0,0.2)]! bg-[rgba(0,0,0,0.06)]!;
+}
+
+html.dark .Layout {
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(199, 119, 93, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(181, 98, 62, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+.VPNavBar,
+.VPLocalNav,
+.VPNavScreen {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+  backdrop-filter: blur(24px) saturate(150%) !important;
+}
+
+html.dark .VPNavBar,
+html.dark .VPLocalNav,
+html.dark .VPNavScreen {
+  background-color: rgba(2, 6, 23, 0.5) !important;
+}
+
+/* Ensure inner content-body doesn't block the glassmorphism with its own bg */
+.VPNavBar .content-body {
+  background-color: transparent !important;
+}
+
+/* Base Mobile Styles (Solid Fallback for Readability) */
+@media (max-width: 959px) {
+  .VPSidebar {
+    border-right: 0 !important;
+    background-color: rgba(255, 255, 255, 0.97) !important;
+    background-image: none !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.05);
+  }
+
+  html.dark .VPSidebar {
+    background-color: rgba(15, 23, 42, 0.98) !important;
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Desktop Styles (Beautiful Glass Gradient) */
+@media (min-width: 960px) {
+  .VPSidebar {
+    border-right: 0 !important;
+    background: linear-gradient(
+      135deg,
+      var(--vp-nav-bg-color) 0%,
+      rgba(255, 255, 255, 0.3) 100%
+    ) !important;
+    backdrop-filter: blur(24px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.05);
+  }
+
+  html.dark .VPSidebar {
+    background: linear-gradient(
+      135deg,
+      var(--vp-nav-bg-color) 0%,
+      rgba(2, 6, 23, 0.2) 100%
+    ) !important;
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+}
+
+.VPNavBar .wrapper,
+.VPLocalNav .wrapper,
+.VPNavScreen .wrapper {
+  @apply bg-transparent!;
+}
+
+.VPBackdrop {
+  background-color: var(--vp-backdrop-bg-color) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}

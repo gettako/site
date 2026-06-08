@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tako",
+  "compatibility_date": "2026-06-04",
+  "observability": {
+    "enabled": true,
+  },
+  "assets": {
+    "directory": ".vitepress/dist",
+  },
+  "compatibility_flags": ["nodejs_compat"],
+}

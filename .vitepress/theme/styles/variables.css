@@ -1,0 +1,134 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   1. Theme Variables & Configuration
+   ========================================================================== */
+
+@theme inline {
+  /* Raw brand palette */
+  --color-brand-1-light: #b5623e;
+  --color-brand-2-light: #a55535;
+  --color-brand-3-light: #c7775d;
+  --color-brand-soft-light: rgba(181, 98, 62, 0.16);
+
+  --color-brand-1-dark: #c7775d;
+  --color-brand-2-dark: #d38870;
+  --color-brand-3-dark: #e19982;
+  --color-brand-soft-dark: rgba(199, 119, 93, 0.16);
+
+  --color-hero-grad-1-light: #f3a183;
+  --color-hero-grad-2-light: #c7775d;
+  --color-hero-grad-3-light: #8e492b;
+
+  /* -------------------------------------------------------
+       Semantic aliases → VitePress CSS vars
+       Usage: bg-surface, bg-muted, text-primary, etc.
+    ------------------------------------------------------- */
+
+  /* Backgrounds */
+  --color-surface: var(--vp-c-bg-soft);
+  --color-muted: var(--vp-c-bg-mute);
+  --color-base: var(--vp-c-bg);
+  --color-elevated: var(--vp-c-bg-alt);
+
+  /* Brand */
+  --color-primary: var(--vp-c-brand-1);
+  --color-primary-2: var(--vp-c-brand-2);
+  --color-primary-3: var(--vp-c-brand-3);
+  --color-primary-soft: var(--vp-c-brand-soft);
+
+  /* Text */
+  --color-text-1: var(--vp-c-text-1);
+  --color-text-2: var(--vp-c-text-2);
+  --color-text-3: var(--vp-c-text-3);
+
+  /* Border */
+  --color-border: var(--terminal-border);
+  --color-divider: var(--vp-c-divider);
+}
+
+:root {
+  --vp-font-family-base: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --vp-font-family-mono:
+    'Iosevka', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  --font-heading: 'Geist Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand Colors (Light Mode) */
+  --vp-c-brand-1: var(--color-brand-1-light);
+  --vp-c-brand-2: var(--color-brand-2-light);
+  --vp-c-brand-3: var(--color-brand-3-light);
+  --vp-c-brand-soft: var(--color-brand-soft-light);
+
+  /* Backgrounds (Light Mode) */
+  --vp-c-bg: var(--color-white);
+  --vp-c-bg-soft: var(--color-slate-100);
+  --vp-c-bg-mute: var(--color-slate-50);
+  --vp-c-bg-alt: var(--color-slate-200);
+  --vp-sidebar-bg-color: var(--vp-c-bg);
+
+  /* Text Colors (Light Mode) */
+  --vp-c-text-1: var(--color-slate-900);
+  --vp-c-text-2: var(--color-slate-600);
+  --vp-c-text-3: var(--color-slate-400);
+
+  /* Borders (Light Mode) */
+  --vp-c-border: #cbd5e1;
+  --vp-c-divider: #cbd5e1;
+  --terminal-border: #cbd5e1;
+
+  /* Hero Gradients */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    var(--color-hero-grad-1-light),
+    var(--color-brand-1-dark),
+    var(--color-hero-grad-3-light)
+  );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    var(--color-hero-grad-1-light) 50%,
+    var(--color-brand-1-light) 50%
+  );
+  --vp-home-hero-image-filter: blur(80px);
+
+  /* Layout Overrides */
+  --vp-code-block-bg: theme('colors.slate.100');
+  --vp-nav-bg-color: rgba(255, 255, 255, 0.85);
+  --vp-sidebar-bg-color: rgba(255, 255, 255, 0.85);
+  --vp-local-nav-bg-color: rgba(255, 255, 255, 0.85);
+  --vp-nav-screen-bg-color: rgba(255, 255, 255, 0.85);
+  --vp-backdrop-bg-color: rgba(255, 255, 255, 0.2);
+}
+
+html.dark {
+  /* Brand Colors (Dark Mode) */
+  --vp-c-brand-1: var(--color-brand-1-dark);
+  --vp-c-brand-2: var(--color-brand-2-dark);
+  --vp-c-brand-3: var(--color-brand-3-dark);
+  --vp-c-brand-soft: var(--color-brand-soft-dark);
+
+  /* Backgrounds (Dark Mode) */
+  --vp-c-bg: var(--color-slate-950);
+  --vp-c-bg-soft: var(--color-slate-900);
+  --vp-c-bg-mute: var(--color-slate-800);
+  --vp-c-bg-alt: var(--color-slate-950);
+
+  /* Text Colors (Dark Mode) — boosted for readability on slate-950 */
+  --vp-c-text-1: rgba(255, 255, 255, 0.95);
+  --vp-c-text-2: rgba(255, 255, 255, 0.7);
+  --vp-c-text-3: rgba(255, 255, 255, 0.45);
+
+  /* Borders (Dark Mode) — oklch 10% white for subtle adaptive border */
+  --vp-c-border: oklch(from var(--color-white) l c h / 10%);
+  --vp-c-divider: oklch(from var(--color-white) l c h / 10%);
+  --terminal-border: oklch(from var(--color-white) l c h / 10%);
+
+  /* Layout Overrides (Dark Mode) */
+  --vp-code-block-bg: theme('colors.slate.900');
+  --vp-nav-bg-color: rgba(15, 23, 42, 0.95); /* slate-900 for contrast */
+  --vp-sidebar-bg-color: rgba(15, 23, 42, 0.95);
+  --vp-local-nav-bg-color: rgba(15, 23, 42, 0.95);
+  --vp-nav-screen-bg-color: rgba(15, 23, 42, 0.95);
+  --vp-backdrop-bg-color: rgba(0, 0, 0, 0.4);
+}
